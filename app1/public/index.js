@@ -5,30 +5,35 @@ async function loadAnimals() {
   list.innerHTML = "";
   animals.forEach((animal) => {
     const item = document.createElement("li");
-    item.innerText = animal.name;
+    console.log(animal);
+    const linha = `${animal.name} - Age: ${animal.age} - Color: ${animal.color}`;
+    item.innerText = linha;
     list.appendChild(item);
   });
 }
 
 function create() {
-  let form_animal = document.getElementById("form-animal");
-  let input_name = document.getElementById("name");
-  let input_age = document.getElementById("age");
-  console.log(typeof input_age);
-  let input_sex = document.getElementById("sex");
-  let input_color = document.getElementById("color");
+  const form_animal = document.getElementById("form-animal");
+  const input_name = document.getElementById("name");
+  const input_age = document.getElementById("age");
+  const input_sex = document.getElementById("sex");
+  const input_color = document.getElementById("color");
   form_animal.onsubmit = async (event) => {
     event.preventDefault();
-    let animalName = input_name.value;
-    let animalAge = input_age.value;
-    let animalSex = input_sex.value;
-    let animaColor = input_color.value;
-    await axios.post("http://localhost:8000/animals", {
-      nome: animalName,
+    const animalName = String(input_name.value);
+    const animalAge = parseInt(input_age.value);
+    const animalSex = String(input_sex.value);
+    const animalColor = String(input_color.value);
+    let objt = {
+      name: animalName,
       age: animalAge,
       sex: animalSex,
-      color: animaColor,
-    });
+      color: animalColor,
+    };
+    console.log(objt);
+    await axios.post("http://localhost:8000/animals", objt);
+    loadAnimals();
+    alert("Registered Animal");
   };
 }
 

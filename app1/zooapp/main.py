@@ -7,7 +7,11 @@ from uuid import uuid4
 
 app = FastAPI()
 
-origins = ['http://127.0.0.1:5555']
+origins = [
+    "http://127.0.0.1:5500",
+    "http://localhost",
+    "http://localhost:8080",
+]
 
 app.add_middleware(
     CORSMiddleware,
